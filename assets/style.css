@@ -1,0 +1,15 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+.nav h3 {
+    margin: 5vw;
+}
+.nav p {
+    margin: 5vw;
+}
+.questionArea {
+    margin: 10vw;
+
+}
