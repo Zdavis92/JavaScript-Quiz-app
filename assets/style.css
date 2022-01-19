@@ -10,6 +10,9 @@
     margin: 5vw;
 }
 .questionArea {
-    margin: 10vw;
+    margin: 5vw 15vw;
 
+}
+.questionArea p {
+    font-size: 30px;
 }
