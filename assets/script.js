@@ -1,3 +1,5 @@
+var mainTextArea = document.querySelector("#mainTextArea")
+
 var questions = Array();
 
 questions[0] = ["Commonly used data types DO NOT include:", "Booleans", "Numbers", "Strings", "Alerts"]
@@ -7,3 +9,20 @@ questions[3] = ["String value must be enclosed in _______ when being assigned to
 questions[4] = ["A useful tool used during development and debugging for printing content to the debugger is:", "JavaScript", "terminal/bash", "for loop", "console.log"]
 console.log(questions[0][1])
 
+function startUp() {
+    mainTextArea.innerHTML = "<p>Welcome to the JavaScript quiz! <br> Try to beat the High Score!</p>"
+    var startButton = document.createElement("button");
+    startButton.textContent = "Start Quiz!"
+    startButton.className = "startBtn"
+    startButton.id = "startBtnId"
+
+    mainTextArea.appendChild(startButton)
+    startButton.addEventListener("click", startQuiz)
+
+}
+
+function startQuiz() {
+    console.log("quiz started")
+}
+
+startUp();
