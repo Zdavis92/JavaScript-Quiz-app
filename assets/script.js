@@ -3,6 +3,7 @@ var mainTextArea = document.querySelector("#mainTextArea")
 var footer = document.querySelector("#footer")
 var timerEl = document.querySelector("#timer")
 var timeLeft = 100;
+var timeInterval
 // questions to be used in the quiz stored in a nested array
 var questions = Array();
 
@@ -23,21 +24,22 @@ function startUp() {
 
     mainTextArea.appendChild(startButton)
     startButton.addEventListener("click", firstQuestion)
-    startButton.addEventListener("click", timer)
+    startButton.addEventListener("click", startTimer)
 
 }
+function startTimer() {
+    timeInterval = setInterval(timer, 1000)
+}
 function timer() {
-    var timeInterval = setInterval(function() {
-        if (timeLeft > 0){
-            timerEl.textContent = "Time Left: " +timeLeft
+        if (timeInterval && timeLeft > 0) {
+            timerEl.textContent = "Time Left: " + timeLeft
             timeLeft--
         }
-        else{
+        else {
             endGame();
             clearInterval(timeInterval)
         }
-    }, 1000);
-}
+};
 function wrongAns() {
     footer.innerHTML = ""
     footer.innerHTML = "<p>Wrong!<p>"
@@ -239,6 +241,7 @@ function fifthQuestion() {
     answerOpt4.addEventListener("click", endGame)
 };
 function endGame() {
+    timeInterval = !timeInterval
     navEl.innerHTML = ""
     mainTextArea.innerHTML = ""
     footer.innerHTML = ""
