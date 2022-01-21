@@ -245,8 +245,31 @@ function endGame() {
     navEl.innerHTML = ""
     mainTextArea.innerHTML = ""
     footer.innerHTML = ""
+    if (timeLeft < 0)
+        timeLeft = 0
+    var score = timeLeft.toString()
     mainTextArea.innerHTML = "<p>All Done!<br>Your final score is<p>"
-    mainTextArea.append(timeLeft)
+    var scoreEl = document.createElement("p")
+    scoreEl.textContent = score
+    mainTextArea.appendChild(scoreEl)
+    var inputInitLabel = document.createElement("label")
+    var inputInitInput = document.createElement("input")
+    var inputBtn = document.createElement("button")
+    inputInitLabel.for = "initials"
+    inputInitLabel.textContent = "Enter your intitals"
+    inputInitLabel.className = "inputLabel"
+    inputInitInput.name = "inititals"
+    inputInitInput.type = "text"
+    inputInitInput.id = "initials"
+    inputBtn.className = "answerOpt"
+    inputBtn.textContent = "Save Score"
+    mainTextArea.appendChild(inputInitLabel)
+    mainTextArea.appendChild(inputInitInput)
+    mainTextArea.appendChild(inputBtn)
+    inputBtn.addEventListener("click", highScores)
 };
+function highScores() {
+    console.log("working")
+}
 
 startUp();

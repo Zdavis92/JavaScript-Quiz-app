@@ -47,3 +47,9 @@
     font-size: 30px;
     text-align: center;
 }
+.inputLabel {
+    font-size: 25px;
+}
+input {
+    width: 50%;
+}
