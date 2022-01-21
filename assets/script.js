@@ -1,5 +1,7 @@
 var mainTextArea = document.querySelector("#mainTextArea")
 var footer = document.querySelector("#footer")
+var timerEl = document.querySelector("#timer")
+var timeLeft = 100;
 // questions to be used in the quiz stored in a nested array
 var questions = Array();
 
@@ -20,17 +22,30 @@ function startUp() {
 
     mainTextArea.appendChild(startButton)
     startButton.addEventListener("click", firstQuestion)
+    startButton.addEventListener("click", timer)
 
 }
+function timer() {
+    var timeInterval = setInterval(function() {
+        if (timeLeft > 0){
+            timerEl.textContent = "Time Left: " +timeLeft
+            timeLeft--
+        }
+        else{
+            clearInterval(timeInterval)
+            endGame();
+        }
+    }, 1000);
+}
 function wrongAns() {
-    var wrong = document.createElement("p")
-    wrong.textContent = "Wrong!"
-    footer.appendChild(wrong)
+    footer.innerHTML = ""
+    footer.innerHTML = "<p>Wrong!<p>"
+    timeLeft = timeLeft - 20
 }
 function rightAns() {
-    var right = document.createElement("p")
-    right.textContent = "Right!"
-    footer.appendChild(right)
+    footer.innerHTML = ""
+    footer.innerHTML = "<p>Right!<p>"
+    timeLeft = timeLeft + 20
 }
 
 function firstQuestion() {
@@ -61,7 +76,7 @@ function firstQuestion() {
     answerOpt2.textContent = questions[0][2]
     answerOpt3.textContent = questions[0][3]
     answerOpt4.textContent = questions[0][4]
-    answerOpt1.addEventListener("click", wrongAns, test())
+    answerOpt1.addEventListener("click", wrongAns)
     answerOpt2.addEventListener("click", wrongAns)
     answerOpt3.addEventListener("click", wrongAns)
     answerOpt4.addEventListener("click", rightAns)
