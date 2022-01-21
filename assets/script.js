@@ -1,3 +1,4 @@
+var navEl = document.querySelector("#nav")
 var mainTextArea = document.querySelector("#mainTextArea")
 var footer = document.querySelector("#footer")
 var timerEl = document.querySelector("#timer")
@@ -32,8 +33,8 @@ function timer() {
             timeLeft--
         }
         else{
-            clearInterval(timeInterval)
             endGame();
+            clearInterval(timeInterval)
         }
     }, 1000);
 }
@@ -238,7 +239,11 @@ function fifthQuestion() {
     answerOpt4.addEventListener("click", endGame)
 };
 function endGame() {
-    console.log("working");
+    navEl.innerHTML = ""
+    mainTextArea.innerHTML = ""
+    footer.innerHTML = ""
+    mainTextArea.innerHTML = "<p>All Done!<br>Your final score is<p>"
+    mainTextArea.append(timeLeft)
 };
 
 startUp();
