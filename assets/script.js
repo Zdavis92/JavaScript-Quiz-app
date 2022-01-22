@@ -4,6 +4,8 @@ var footer = document.querySelector("#footer")
 var timerEl = document.querySelector("#timer")
 var timeLeft = 100;
 var timeInterval
+var score = ""
+var playerInitials = ""
 // questions to be used in the quiz stored in a nested array
 var questions = Array();
 
@@ -247,7 +249,7 @@ function endGame() {
     footer.innerHTML = ""
     if (timeLeft < 0)
         timeLeft = 0
-    var score = timeLeft.toString()
+    score = timeLeft.toString()
     mainTextArea.innerHTML = "<p>All Done!<br>Your final score is<p>"
     var scoreEl = document.createElement("p")
     scoreEl.textContent = score
@@ -259,17 +261,23 @@ function endGame() {
     inputInitLabel.textContent = "Enter your intitals"
     inputInitLabel.className = "inputLabel"
     inputInitInput.name = "inititals"
-    inputInitInput.type = "text"
     inputInitInput.id = "initials"
     inputBtn.className = "answerOpt"
     inputBtn.textContent = "Save Score"
     mainTextArea.appendChild(inputInitLabel)
     mainTextArea.appendChild(inputInitInput)
     mainTextArea.appendChild(inputBtn)
-    inputBtn.addEventListener("click", highScores)
+    inputBtn.addEventListener("click", savePlInt)
+    
 };
+function savePlInt() {
+    intialField = document.getElementById("initials")
+    playerInitials = intialField.value
+    highScores();
+}
 function highScores() {
-    console.log("working")
+    mainTextArea.innerHTML = ""
+    console.log(playerInitials)
 }
 
 startUp();
