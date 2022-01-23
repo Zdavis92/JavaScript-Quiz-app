@@ -16,7 +16,7 @@ questions[2] = ["The conditions of an If/Else statement is enclosed with:", "quo
 questions[3] = ["A String value must be enclosed in _______ when being assigned to a variable", "commas", "curly brackets", "quotes", "parentheses"]
 questions[4] = ["A useful tool used during development and debugging for printing content to the debugger is:", "JavaScript", "terminal/bash", "for loop", "console.log"]
 
-// function to disply the starting screen
+// function to display the starting screen
 function startUp() {
     // Welcome message
     mainTextArea.innerHTML = "<p>Welcome to the JavaScript quiz! <br> Try to beat the High Score!</p>"
@@ -30,9 +30,11 @@ function startUp() {
     startButton.addEventListener("click", startTimer)
 
 }
+// starts the timer when called
 function startTimer() {
     timeInterval = setInterval(timer, 1000)
 }
+// display the timer if time is left and end the quiz when time runs out
 function timer() {
         if (timeInterval && timeLeft > 0) {
             timerEl.textContent = "Time Left: " + timeLeft
@@ -43,17 +45,19 @@ function timer() {
             clearInterval(timeInterval)
         }
 };
+// if the wrong answer is picked. Displays 'wrong' and deducts time
 function wrongAns() {
     footerEl.innerHTML = ""
     footerEl.innerHTML = "<p>Wrong!<p>"
     timeLeft = timeLeft - 20
 }
+// if the right answer is picked. Displays 'right' and add time
 function rightAns() {
     footerEl.innerHTML = ""
     footerEl.innerHTML = "<p>Right!<p>"
     timeLeft = timeLeft + 20
 }
-
+// displays the first question
 function firstQuestion() {
     mainTextArea.innerHTML = "<p>" + questions[0][0] + "<p>"
     var answerContainer = document.createElement("ul")
@@ -91,6 +95,7 @@ function firstQuestion() {
     answerOpt3.addEventListener("click", secondQuestion)
     answerOpt4.addEventListener("click", secondQuestion)
 };
+// displays the second question
 function secondQuestion() {
     mainTextArea.innerHTML = ""
     mainTextArea.innerHTML = "<p>" + questions[1][0] + "<p>"
@@ -129,6 +134,7 @@ function secondQuestion() {
     answerOpt3.addEventListener("click", thirdQuestion)
     answerOpt4.addEventListener("click", thirdQuestion)
 };
+// displays the third question
 function thirdQuestion() {
     mainTextArea.innerHTML = ""
     mainTextArea.innerHTML = "<p>" + questions[2][0] + "<p>"
@@ -167,6 +173,7 @@ function thirdQuestion() {
     answerOpt3.addEventListener("click", fourthQuestion)
     answerOpt4.addEventListener("click", fourthQuestion)
 };
+// displays the fouth question
 function fourthQuestion() {
     mainTextArea.innerHTML = ""
     mainTextArea.innerHTML = "<p>" + questions[3][0] + "<p>"
@@ -205,6 +212,7 @@ function fourthQuestion() {
     answerOpt3.addEventListener("click", fifthQuestion)
     answerOpt4.addEventListener("click", fifthQuestion)
 };
+// displays the fifth question
 function fifthQuestion() {
     mainTextArea.innerHTML = ""
     mainTextArea.innerHTML = "<p>" + questions[4][0] + "<p>"
@@ -243,6 +251,7 @@ function fifthQuestion() {
     answerOpt3.addEventListener("click", endGame)
     answerOpt4.addEventListener("click", endGame)
 };
+// stops the timer, prompts for initials to save score
 function endGame() {
     timeInterval = !timeInterval
     navEl.innerHTML = ""
@@ -270,6 +279,7 @@ function endGame() {
     mainTextArea.appendChild(inputBtn)
     inputBtn.addEventListener("click", savePlInt)
 };
+// add the new score to local storage
 function savePlInt() {
     initialField = document.getElementById("initials")
     var playerInfo = {
@@ -290,31 +300,27 @@ function savePlInt() {
         highScores();
     }
 };
-
-
+// displays the top 5 high scores
 function highScores() {
-    mainTextArea.innerHTML = "<p>Top 5<br>High Scores!<p>"
+    mainTextArea.innerHTML = "<p>Top<br>High Scores!<p>"
     var scoreDiv = document.createElement("div")
-    var startOver = document.createElement("button")
-    var quit = document.createElement("button")
-    var flexDiv = document.createElement("div")
-    flexDiv.className = "flex"
     scoreDiv.className = "scores"
-    startOver.textContent = "Yes"
-    quit.textContent = "No"
-    startOver.className = "answerOpt"
-    quit.className = "answerOpt"
-    footerEl.innerHTML = "<p>Would you like to try again?<p>"
-    footerEl.appendChild(flexDiv)
-    flexDiv.appendChild(startOver)
-    flexDiv.appendChild(quit)
+    footerEl.innerHTML = "<p>Thanks for playing!<p>"
     mainTextArea.appendChild(scoreDiv)
-    for (i = 0; i < 5; i++) {
-        var scoreEl = document.createElement("p")
-        scoreEl.textContent = savedHighScores[i].initials + " with a score of " + savedHighScores[i].playerScore
-        scoreDiv.appendChild(scoreEl)
+    if (savedHighScores.length <= 5) {
+        for (i = 0; i < savedHighScores.length; i++) {
+            var scoreEl = document.createElement("p")
+            scoreEl.textContent = savedHighScores[i].initials + " with a score of " + savedHighScores[i].playerScore
+            scoreDiv.appendChild(scoreEl)
+        }
     }
-
+    else {
+        for (i = 0; i < 5; i++) {
+            var scoreEl = document.createElement("p")
+            scoreEl.textContent = savedHighScores[i].initials + " with a score of " + savedHighScores[i].playerScore
+            scoreDiv.appendChild(scoreEl)
+        }
+    }
 };
-
+// inital function to start the Quiz
 startUp();
