@@ -6,6 +6,7 @@ var timeLeft = 100;
 var timeInterval
 var score = ""
 var playerInitials = ""
+var savedHighScores = []
 // questions to be used in the quiz stored in a nested array
 var questions = Array();
 
@@ -268,16 +269,48 @@ function endGame() {
     mainTextArea.appendChild(inputInitInput)
     mainTextArea.appendChild(inputBtn)
     inputBtn.addEventListener("click", savePlInt)
-    
 };
 function savePlInt() {
-    intialField = document.getElementById("initials")
-    playerInitials = intialField.value
-    highScores();
-}
+    initialField = document.getElementById("initials")
+    var playerInfo = {
+        initials: initialField.value.trim(),
+        playerScore: score
+    };
+    savedHighScores = JSON.parse(localStorage.getItem("highScores"))
+    if (savedHighScores === null) {
+        savedHighScores = []
+        savedHighScores.push(playerInfo);
+        localStorage.setItem("highScores", JSON.stringify(savedHighScores))
+        highScores();
+    }
+    else {
+        savedHighScores.push(playerInfo);
+        savedHighScores.sort((a, b) => b.playerScore - a.playerScore);
+        localStorage.setItem("highScores", JSON.stringify(savedHighScores));
+        highScores();
+    }
+};
+
+
 function highScores() {
     mainTextArea.innerHTML = ""
-    console.log(playerInitials)
-}
+    mainTextArea.innerHTML = "<p>Top 5<br>High Scores!<p>"
+    for (i = 0; i < savedHighScores.length; i++) {
+        var scoreEl = document.createElement("p")
+        scoreEl.textContent = savedHighScores[i].initials + " with a score of " + savedHighScores[i].playerScore
+        mainTextArea.appendChild(scoreEl)
+        if (i === 4) {
+            return false
+        }
+    }
+    var startOver = document.createElement("button")
+    var quit = document.createElement("button")
+    startOver.textContent = "Would you like to play again?"
+    quit.textContent = "Quit"
+    startOver.className = "answerOpt"
+    quit.className = "answerOpt"
+    footer.appendChild(startOver)
+    footer.appendChild(quit)
+};
 
 startUp();
