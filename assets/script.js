@@ -1,6 +1,6 @@
 var navEl = document.querySelector("#nav")
 var mainTextArea = document.querySelector("#mainTextArea")
-var footer = document.querySelector("#footer")
+var footerEl = document.querySelector("#footer")
 var timerEl = document.querySelector("#timer")
 var timeLeft = 100;
 var timeInterval
@@ -44,13 +44,13 @@ function timer() {
         }
 };
 function wrongAns() {
-    footer.innerHTML = ""
-    footer.innerHTML = "<p>Wrong!<p>"
+    footerEl.innerHTML = ""
+    footerEl.innerHTML = "<p>Wrong!<p>"
     timeLeft = timeLeft - 20
 }
 function rightAns() {
-    footer.innerHTML = ""
-    footer.innerHTML = "<p>Right!<p>"
+    footerEl.innerHTML = ""
+    footerEl.innerHTML = "<p>Right!<p>"
     timeLeft = timeLeft + 20
 }
 
@@ -247,7 +247,7 @@ function endGame() {
     timeInterval = !timeInterval
     navEl.innerHTML = ""
     mainTextArea.innerHTML = ""
-    footer.innerHTML = ""
+    footerEl.innerHTML = ""
     if (timeLeft < 0)
         timeLeft = 0
     score = timeLeft.toString()
@@ -293,24 +293,28 @@ function savePlInt() {
 
 
 function highScores() {
-    mainTextArea.innerHTML = ""
     mainTextArea.innerHTML = "<p>Top 5<br>High Scores!<p>"
-    for (i = 0; i < savedHighScores.length; i++) {
-        var scoreEl = document.createElement("p")
-        scoreEl.textContent = savedHighScores[i].initials + " with a score of " + savedHighScores[i].playerScore
-        mainTextArea.appendChild(scoreEl)
-        if (i === 4) {
-            return false
-        }
-    }
+    var scoreDiv = document.createElement("div")
     var startOver = document.createElement("button")
     var quit = document.createElement("button")
-    startOver.textContent = "Would you like to play again?"
-    quit.textContent = "Quit"
+    var flexDiv = document.createElement("div")
+    flexDiv.className = "flex"
+    scoreDiv.className = "scores"
+    startOver.textContent = "Yes"
+    quit.textContent = "No"
     startOver.className = "answerOpt"
     quit.className = "answerOpt"
-    footer.appendChild(startOver)
-    footer.appendChild(quit)
+    footerEl.innerHTML = "<p>Would you like to try again?<p>"
+    footerEl.appendChild(flexDiv)
+    flexDiv.appendChild(startOver)
+    flexDiv.appendChild(quit)
+    mainTextArea.appendChild(scoreDiv)
+    for (i = 0; i < 5; i++) {
+        var scoreEl = document.createElement("p")
+        scoreEl.textContent = savedHighScores[i].initials + " with a score of " + savedHighScores[i].playerScore
+        scoreDiv.appendChild(scoreEl)
+    }
+
 };
 
 startUp();
